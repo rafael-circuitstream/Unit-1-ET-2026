@@ -13,7 +13,6 @@ public class FirstCode : MonoBehaviour
 
     }
 
-
     void Update()
     {
         if (blockInput)
@@ -39,10 +38,10 @@ public class FirstCode : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            
             blockInput = true;
             ballRigidbody.AddForce(aimTransform.forward * throwForce);
             aimTransform.gameObject.SetActive(false);
-            
         }
 
     }
@@ -50,13 +49,13 @@ public class FirstCode : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        BallReachTheEnd();
+        Invoke("BallReachTheEnd", 4);
     }
 
     void BallReachTheEnd()
     {
+        //////
         FindAnyObjectByType<GameManager>().CalculateScore();
-
         Destroy(gameObject);
     }
 }
