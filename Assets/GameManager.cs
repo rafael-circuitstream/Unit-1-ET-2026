@@ -6,13 +6,31 @@ public class GameManager : MonoBehaviour
 
     public Pin[] allPins;
     public int score;
+    public int totalScore;
+
     public int throwCounter;
     public int frameCounter;
+
+    public GameObject gameOverScreen;
+
+    public UIFrame[] allUIFrames;
+
 
     void Start()
     {
         Instantiate(ballPrefab);
-        
+
+        int temporaryCounter = 1;
+
+        foreach(UIFrame x in allUIFrames)
+        {
+            x.frameNumber.text = temporaryCounter.ToString();
+            temporaryCounter += 1;
+
+            x.firstThrowScore.text = "";
+            x.secondThrowScore.text = "";
+            x.totalScore.text = "";
+        }
     }
 
     void Update()
@@ -54,11 +72,15 @@ public class GameManager : MonoBehaviour
             throwCounter = 0;
             ResetPins();
             frameCounter += 1;
+            totalScore += score;
         }
-
 
         Instantiate(ballPrefab);
 
+        if(frameCounter == 10)
+        {
+            gameOverScreen.SetActive(true);
+        }
     }
 
 
