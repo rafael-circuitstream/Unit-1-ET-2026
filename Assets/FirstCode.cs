@@ -7,6 +7,7 @@ public class FirstCode : MonoBehaviour
     public Transform aimTransform;
     public int throwForce;
     public bool blockInput;
+    public AudioSource rollingBallAudio;
 
     void Start()
     {
@@ -38,10 +39,11 @@ public class FirstCode : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            
+            rollingBallAudio.Play();
             blockInput = true;
             ballRigidbody.AddForce(aimTransform.forward * throwForce);
             aimTransform.gameObject.SetActive(false);
+            Invoke("BallReachTheEnd", 15);
         }
 
     }
@@ -49,6 +51,8 @@ public class FirstCode : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Ball is about to respawn");
+
         Invoke("BallReachTheEnd", 4);
     }
 
